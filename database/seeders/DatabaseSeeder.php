@@ -18,5 +18,23 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        // \App\Models\Category::create([
+        //     'name' => 'Programming',
+        //     'slug' => 'programming',
+            
+        // ]);
+        // \App\Models\Category::create([
+        //     'name' => 'Social',
+        //     'slug' => 'social',
+
+        // ]);
+        // \App\Models\Category::create([
+        //     'name' => 'Personal',
+        //     'slug' => 'personal',
+
+        // ]);
+
+        // \App\Models\Post::factory(10)->create();
     }
 }
