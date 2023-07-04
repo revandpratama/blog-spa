@@ -5,7 +5,7 @@
                 <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 mr-3" alt="Flowbite Logo" />
                 <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">AshBlog</span>
             </a>
-            <div class="flex items-center md:order-2">
+            <div v-if="user" class="flex items-center md:order-2">
                 <button type="button"
                     class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                     id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown"
@@ -52,6 +52,9 @@
                     </svg>
                 </button>
             </div>
+            <div v-else class="flex items-center md:order-2">
+                <Link href="/login" class="bg-blue-500 py-1 px-2 text-white shadow-lg rounded-lg hover:bg-blue-700">Login</Link>
+            </div>
             <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="mobile-menu-2">
                 <ul
                     class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
@@ -90,6 +93,12 @@
 
 
 
-<script setup></script>
+<script setup>
+import { computed } from 'vue'
+import { usePage } from '@inertiajs/vue3'
+
+
+const user = computed(() => usePage().props.user)
+</script>
 
 <style scoped></style>

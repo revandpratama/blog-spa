@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\Post;
-use Illuminate\Http\Request;
+use App\Models\User;
 use Inertia\Inertia;
+use App\Models\Category;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class PostController extends Controller
 {
@@ -41,8 +43,10 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        $postBody =  explode("\n", $post->body);
         return Inertia::render('ShowPost', [
-            "post" => $post->load('user', 'category')
+            "post" => $post->load('user', 'category'),
+            "postBody" => $postBody
         ]);
     }
 
@@ -68,5 +72,23 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         //
+    }
+
+    public function byAuthor(User $user)
+    {
+        $posts = Post::where('user_id', $user->id)->get()->load('user', 'category');
+
+        return Inertia::render('PostByAuthor', [
+            'posts' => $posts
+        ]);
+    }
+
+    public function byCategory(Category $category)
+    {
+        
+        $posts = Post::where('category_id', $category->id)->get()->load('user', 'category');
+        return Inertia::render('PostByCategory', [
+            'posts' => $posts
+        ]);
     }
 }
