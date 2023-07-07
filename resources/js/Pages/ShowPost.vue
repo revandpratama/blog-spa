@@ -9,7 +9,7 @@
             <div class="w-1/3 my-5">
                 <img src="https://source.unsplash.com/1200x720" alt="">
             </div>
-            <div v-for="index, pb in props.postBody"><p :class="{index: 0}, 'first-letter:text-lg'">{{ pb }}</p></div>
+            <div v-for="pb in props.postBody"><p>{{ pb }}</p></div>
 
             
         </div>

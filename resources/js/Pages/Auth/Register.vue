@@ -1,13 +1,98 @@
 <template>
-    <div>
-
-    </div>
+    <section class="bg-gray-50 dark:bg-gray-900">
+        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+            <Link href="/" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+                <img class="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo">
+                AshBlog
+            </Link>
+            <div
+                class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+                <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                    <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                        Login to your account
+                    </h1>
+                    <form class="space-y-4 md:space-y-6" @submit.prevent="register">
+                        <span v-show="form.errors">{{ form.errors }}</span>
+                        <div>
+                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Name</label>
+                            <input type="text" name="name" id="name" v-model="form.name"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="name" required="">
+                        </div>
+                        <div>
+                            <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Username</label>
+                            <input type="text" name="username" id="username" v-model="form.username"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="username" required="">
+                        </div>
+                        <div>
+                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Email</label>
+                            <input type="email" name="email" id="email" v-model="form.email"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="name@example.com" required="">
+                        </div>
+                        <div>
+                            <label for="password"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                            <input type="password" name="password" id="password" placeholder="••••••••"
+                                v-model="form.password"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                required="">
+                        </div>
+                        <div>
+                            <label for="passwordMatch"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Repeat Password</label>
+                            <input type="password" name="passwordMatch" id="passwordMatch" placeholder="••••••••"
+                                v-model="form.passwordMatch"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                required="">
+                        </div>
+                        <button type="submit"
+                            class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign
+                            in</button>
+                        <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+                            Already Had an account?
+                            <Link href="/login" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Login</Link>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 </template>
 
+<script>
+export default {
+    props: ['errors']
+}
+</script>
+
 <script setup>
+import { reactive, onMounted } from "vue";
+import { router } from "@inertiajs/vue3";
+import { initFlowbite } from "flowbite";
+
+onMounted(() => {
+    initFlowbite();
+})
+
+
+const form = reactive({
+    name: null,
+    username: null,
+    email: null,
+    password: null,
+    passwordMatch: null
+});
+
+function register() 
+{ 
+    router.post('/register', form);
+}
 
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

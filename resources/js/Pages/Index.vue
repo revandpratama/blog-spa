@@ -1,5 +1,5 @@
 <template>
-    <div class="grid grid-cols-2 gap-3">
+    <div class="grid gap-5">
 
         <div v-for="post in props.posts" class="flex justify-center">
             <div class="w-5/6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">

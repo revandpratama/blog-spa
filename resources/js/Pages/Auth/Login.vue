@@ -12,7 +12,7 @@
                         Login to your account
                     </h1>
                     <form class="space-y-4 md:space-y-6" @submit.prevent="login">
-                        <span v-show="form.errors">{{ form.errors }}</span>
+                        <span v-show="errors.email" class="text-sm text-red-500">{{ errors.email }}</span>
                         <div>
                             <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                 Email</label>
@@ -55,8 +55,14 @@ export default {
 </script>
 
 <script setup>
-import { reactive } from "vue";
+import { reactive, onMounted } from "vue";
 import { router } from "@inertiajs/vue3";
+import { initFlowbite } from "flowbite";
+
+onMounted(() => {
+    initFlowbite();
+})
+
 
 const form = reactive({
     email: null,

@@ -38,18 +38,13 @@
                                 id="dropdown-user">
                                 <div class="px-4 py-3" role="none">
                                     <p class="text-sm text-gray-900 dark:text-white" role="none">
-                                        Neil Sims
+                                        {{ user.name }}
                                     </p>
                                     <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
-                                        neil.sims@flowbite.com
+                                        {{ user.email }}
                                     </p>
                                 </div>
                                 <ul class="py-1" role="none">
-                                    <li>
-                                        <a href="#"
-                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                            role="menuitem">Dashboard</a>
-                                    </li>
                                     <li>
                                         <a href="#"
                                             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
@@ -61,9 +56,11 @@
                                             role="menuitem">Earnings</a>
                                     </li>
                                     <li>
-                                        <a href="#"
-                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                            role="menuitem">Sign out</a>
+                                        <form @submit.prevent="logout" method="post">
+                                            <button type="submit"
+                                                class="w-full text-start block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Log
+                                                out</button>
+                                        </form>
                                     </li>
                                 </ul>
                             </div>
@@ -180,58 +177,30 @@
 
     <div class="p-4 sm:ml-64">
         <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
-            <div class="grid grid-cols-3 gap-4 mb-4">
-                <div class="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
-                </div>
-                <div class="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
-                </div>
-                <div class="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
-                </div>
-            </div>
-            <div class="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
-                <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
-            </div>
-            <div class="grid grid-cols-2 gap-4 mb-4">
-                <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
-                </div>
-                <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
-                </div>
-                <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
-                </div>
-                <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
-                </div>
-            </div>
-            <div class="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
-                <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-                <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
-                </div>
-                <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
-                </div>
-                <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
-                </div>
-                <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
-                </div>
-            </div>
+            
+            <slot />
+            
         </div>
     </div>
 
 
-    <slot />
-</div></template>
+ 
+</div>
+</template>
 
 <script setup>
+import { onMounted, computed } from 'vue';
+import { initFlowbite } from 'flowbite';
+import { usePage, router } from '@inertiajs/vue3';  
+onMounted(() => {
+    initFlowbite();
+})
+
+const user = computed(() => usePage().props.user)
+
+function logout() {
+    router.post('/logout')
+}
+
 import { Sidebar } from 'flowbite-vue'
 </script>

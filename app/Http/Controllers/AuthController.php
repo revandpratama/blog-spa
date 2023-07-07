@@ -38,24 +38,31 @@ class AuthController extends Controller
     }
     public function register(Request $request) 
     {
-        $validatedData = $request->validate([
+        $rules = [
             'name' => 'required',
             'username' => 'required',
             'email' => 'required',
-            'name' => 'required',
             'password' => 'required',
             'passwordMatch' => 'required'
-        ]);
+        ];
 
+        $validatedData = $request->validate($rules);
+        // $validatedData = $request->validate([
+        //     'name' => 'required',
+        //     'username' => 'required',
+        //     'email' => 'required',
+        //     'password' => 'required',
+        //     'passwordMatch' => 'required'
+        // ]);
         if ($request->password !== $request->passwordMatch) {
             return back()->withErrors(['password' => 'password does not match']);
         }
 
         $validatedData['password'] = bcrypt($validatedData['password']);
-
+        // dd($validatedData);
         User::create($validatedData);
         
-        return redirect('/')->with('Account successfully created');
+        return redirect('/login')->flash('Account successfully created');
     }
 
 
